@@ -112,13 +112,25 @@ Exemplo de JSON para criar ou atualizar um autor:
 ## Configuracao do banco
 
 As configuracoes atuais estao em `src/main/resources/application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://${DB_SERVER_URL:host.docker.internal}:${DB_SERVER_PORT:3306}/${DB_SCHEMA:biblioteca}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+spring.datasource.username=${DB_USER:root}
+spring.datasource.password=${DB_PWD:root_pwd}
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+```
+
 As configuracoes de prd estao em `src/main/resources/application-prd.properties`:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/biblioteca?createDatabaseIfNotExist=true
-spring.datasource.username=root
-spring.datasource.password=root_pwd
-spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://${DB_SERVER_URL:localhost}:${DB_SERVER_PORT:3306}/${DB_SCHEMA:biblioteca_prd}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+spring.datasource.username=${DB_USER:root}
+spring.datasource.password=${DB_PWD:root_pwd}
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=false
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
 ```
 
 O Hibernate esta configurado com `ddl-auto=update`, entao as tabelas sao criadas ou atualizadas automaticamente ao iniciar a aplicacao.
