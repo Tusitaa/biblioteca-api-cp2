@@ -1,4 +1,4 @@
-# Biblioteca API CP2
+# Biblioteca API CP1 - 2° Semestre
 
 API REST para gerenciamento de livros e autores, desenvolvida com Java, Spring Boot, Spring Data JPA, MySQL e Swagger/OpenAPI.
 
@@ -121,3 +121,45 @@ spring.jpa.hibernate.ddl-auto=update
 ```
 
 O Hibernate esta configurado com `ddl-auto=update`, entao as tabelas sao criadas ou atualizadas automaticamente ao iniciar a aplicacao.
+
+## Utilizando Docker
+
+Comando para buildar a imagem:
+```
+Docker build -t biblioteca-image:1.0 .
+```
+
+Comando para subir o banco de dados com docker:
+```
+docker run -d \ 
+--name mysql \ 
+--rm \ 
+-e MYSQL_ROOT_PASSWORD=root_pwd \ 
+-e MYSQL_USER=new_user \ 
+-e MYSQL_PASSWORD=my_pwd \ 
+-p 3306:3306 \ 
+mysql
+```
+
+Comando para subir a imagem com docker:
+```
+docker run -p 8080:8080 \
+-e DB_SERVER_URL=host.docker.internal \
+-e DB_SERVER_PORT=3306 \
+-e DB_SCHEMA=biblioteca \
+-e DB_USER=root \
+-e DB_PWD=root_pwd \
+biblioteca-image:1.0
+```
+
+Comando para subir a imagem utilizando o profile prd com docker:
+```
+docker run -p 8080:8080 \
+-e DB_SERVER_URL= localhost \
+-e DB_SERVER_PORT= 3306 \
+-e DB_SCHEMA= biblioteca_prd \
+-e DB_USER=root \
+-e DB_PWD=root_pwd \
+-e SPRING_PROFILES_ACTIVE \
+ biblioteca-image:1.0
+ ```
