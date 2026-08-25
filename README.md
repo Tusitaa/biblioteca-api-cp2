@@ -112,6 +112,7 @@ Exemplo de JSON para criar ou atualizar um autor:
 ## Configuracao do banco
 
 As configuracoes atuais estao em `src/main/resources/application.properties`:
+As configuracoes de prd estao em `src/main/resources/application-prd.properties`:
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/biblioteca?createDatabaseIfNotExist=true
